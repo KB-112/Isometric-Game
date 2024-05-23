@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 
 public class GridGeneration : MonoBehaviour
@@ -9,7 +9,7 @@ public class GridGeneration : MonoBehaviour
     public Vector2 gridSize;
     Vector2 posofGrid;
     public GameObject gridObj;
-    public Text posInput;
+    public TextMeshProUGUI posInput;
 
     private void Start()
     {
