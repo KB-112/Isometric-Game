@@ -1,27 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SelectionManager : MonoBehaviour
 {
-    [SerializeField] private Material highlightMaterial;
-    Color deselectColor = new Color(255f, 255f, 255f, 255f);
+    public static event Action<GameObject> mouseInput;
+    public static event Action removeMouse;
 
     [SerializeField] private string selectableGrid = "";
 
-    private Transform selection;
+    private GameObject currentSelection = null;
+
     private void Update()
     {
-        if (selection != null)
-        {
-            var selectionRenderer = selection.GetComponent<Renderer>();
-            if (selectionRenderer != null)
-            {
-                selectionRenderer.material.color = deselectColor;
-            }
-            selection = null;
-        }
-
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -29,14 +19,19 @@ public class SelectionManager : MonoBehaviour
             var _selection = hit.transform;
             if (_selection.CompareTag(selectableGrid))
             {
-                var selectionRenderer = _selection.GetComponent<Renderer>();
-                if (selectionRenderer != null)
+                if (currentSelection != null && currentSelection != _selection.gameObject)
                 {
-                    selectionRenderer.material.color = highlightMaterial.color;
+                    removeMouse?.Invoke();
                 }
-                selection = _selection;
+
+                currentSelection = _selection.gameObject;
+                mouseInput?.Invoke(currentSelection);
             }
         }
+        else if (currentSelection != null)
+        {
+            removeMouse?.Invoke();
+            currentSelection = null;
+        }
     }
-
 }

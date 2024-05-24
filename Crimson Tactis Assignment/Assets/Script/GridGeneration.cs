@@ -7,9 +7,9 @@ using TMPro;
 public class GridGeneration : MonoBehaviour
 {
     public Vector2 gridSize;
-    Vector2 posofGrid;
+    Vector3 posofGrid;
     public GameObject gridObj;
-    public TextMeshProUGUI posInput;
+   
 
     private void Start()
     {
@@ -19,11 +19,11 @@ public class GridGeneration : MonoBehaviour
 
     void CreateLayout()
     {
-        for (int i = 0; i < gridSize.x; i++)
+        for (int i = 2; i < gridSize.x; i++)
         {
             for (int j = 0; j < gridSize.y; j++)
             { 
-                posofGrid = new Vector2(i, i);
+                posofGrid = new Vector3(i, 0,j);
          GameObject obj =     Instantiate(gridObj, posofGrid, Quaternion.identity);
                 
              
