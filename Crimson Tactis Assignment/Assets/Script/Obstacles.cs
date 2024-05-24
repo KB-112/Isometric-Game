@@ -16,11 +16,12 @@ public class Obstacles : MonoBehaviour
 
   
    public int distance;
-
+    public int widthX = 0;
+    public int heightY = 0;
     private void Start()
     {
         gridGeneration = GetComponent<GridGeneration>();
-        obstacleManager.obstacle = obstaclePrefab;
+       
         
         GridObstacleDeployment();
         
