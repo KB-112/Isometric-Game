@@ -17,21 +17,26 @@ public class SelectionManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             var _selection = hit.transform;
-            if (_selection.CompareTag(selectableGrid))
+            if (currentSelection != null && currentSelection != _selection.gameObject)
             {
-                if (currentSelection != null && currentSelection != _selection.gameObject)
-                {
-                    removeMouse?.Invoke();
-                }
-
-                currentSelection = _selection.gameObject;
-                mouseInput?.Invoke(currentSelection);
+                Debug.Log("Hit");
+                if (removeMouse != null)
+                    removeMouse.Invoke();
             }
+
+            if (currentSelection != null)
+            {
+                if (mouseInput != null)
+                    mouseInput.Invoke(currentSelection);
+            }
+
         }
         else if (currentSelection != null)
         {
-            removeMouse?.Invoke();
+            if (removeMouse != null)
+                removeMouse.Invoke();
             currentSelection = null;
         }
+
     }
 }

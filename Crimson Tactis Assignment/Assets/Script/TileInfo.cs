@@ -19,10 +19,10 @@ public class TileInfo : MonoBehaviour
 
     void Information(GameObject selectedTile)
     {
-        if (selectedTile == this.gameObject)
+        if (selectedTile == gameObject)
         {
-            selectTile = selectedTile;
-            corrdiantes.text = $"X: {this.transform.position.x}, Y: {this.transform.position.z}";
+           
+          
             Material newMaterial = new Material(selectionMaterial);
             newMaterial.color = new Color(255f, 92f, 0f, 255f);
 
@@ -34,12 +34,11 @@ public class TileInfo : MonoBehaviour
 
     void ChangeInfo()
     {
-        if (selectTile == this.gameObject)
-        {
-            corrdiantes.text = $" ";
+        
+          
             this.GetComponent<Renderer>().material = selectionMaterial;
             selectionMaterial.color = deselectColor;
-        }
+        
     }
     private void OnDestroy()
     {
