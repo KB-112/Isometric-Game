@@ -21,7 +21,11 @@ public class CameraMovement : MonoBehaviour
     public float minZoom; // Minimum zoom distance
     public float maxZoom; // Maximum zoom distance
     private Vector3 targetPosition;
-
+    private float currentZoom;
+    private void Start()
+    {
+        currentZoom = Camera.main.orthographicSize;
+    }
     void Update()
     {
         if (!isRotating && Input.GetKeyDown(KeyCode.A))
@@ -38,22 +42,8 @@ public class CameraMovement : MonoBehaviour
             }
             StartCoroutine(RotateCamera(directions[currentDirection]));
         }
-        if (isRotating)
-        {
-            if ((Mathf.Abs(transform.eulerAngles.y - 45) < 1) || (Mathf.Abs(transform.eulerAngles.y - 315) < 1))
-            {
-                targetPosition = new Vector3(transform.position.x, transform.position.y, -5);
-            }
-            else
-            {
-                targetPosition = new Vector3(transform.position.x, transform.position.y, 5);
-            }
-        }
-
-        float scrollData = Input.GetAxis("Mouse ScrollWheel");
-        Camera.main.orthographicSize -= scrollData * zoomSpeed;
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, minZoom, maxZoom);
-
+      
+        CameraZoomInOut();
     }
 
     IEnumerator RotateCamera(Vector3 targetRotation)
@@ -72,5 +62,25 @@ public class CameraMovement : MonoBehaviour
         }
        
         isRotating = false;
+    }
+
+
+    void CameraZoomInOut()
+    {
+        float scrollData = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollData != 0)
+        {
+            Vector3 mouseScreenPos = Input.mousePosition;
+            Vector3 mouseWorldPosBeforeZoom = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+
+            currentZoom -= scrollData * zoomSpeed;
+            currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+            Camera.main.orthographicSize = currentZoom;
+
+            Vector3 mouseWorldPosAfterZoom = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+            Vector3 adjustment = mouseWorldPosBeforeZoom - mouseWorldPosAfterZoom;
+
+            Camera.main.transform.position += adjustment;
+        }
     }
 }

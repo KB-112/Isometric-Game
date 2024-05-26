@@ -7,7 +7,9 @@ public class ObstacleManager : MonoBehaviour
     public StoreObstacleData obstacleData;
     public GameObject obstaclePrefab;
    
-     List<Vector3> pos;
+    public  List<Vector3> pos;
+
+
     private void Start()
     {
         CheckActiveBools();
@@ -23,7 +25,8 @@ public class ObstacleManager : MonoBehaviour
             {
                 if (obstacleData.columns[i].rows[j])
                 {
-                    Debug.Log("Bool at column " + i + ", row " + j + " is active.");
+                  //  Debug.Log("Bool at column " + i + ", row " + j + " is active.");
+                   
                     pos.Add(new Vector3(i, 1,j)); 
                 }
             }
@@ -35,6 +38,5 @@ public class ObstacleManager : MonoBehaviour
             Instantiate(obstaclePrefab, pos[i], Quaternion.identity);
         }
     }
-
-
+   
 }

@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0cca0d5609a574195ee8c6031a101e, type: 3}
   m_Name: ObstacleData
   m_EditorClassIdentifier: 
-  X: 0
-  Y: 0
-  columns: []
+  X: 10
+  Y: 10
+  columns:
+  - rows: 00000000000000000000
+  - rows: 00000100000000000000
+  - rows: 01000000000000000000
+  - rows: 00000000000000000000
+  - rows: 00000000010000000000
+  - rows: 00000000000000000000
+  - rows: 00000000000000000000
+  - rows: 00000000000000000000
+  - rows: 00000000000000000000
+  - rows: 00000000000000000000
